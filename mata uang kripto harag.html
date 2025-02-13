@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Harga Bitcoin (BTC) Hari Ini - Real-Time</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #121212;
+            color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        h1 {
+            color: #ff9900;
+            font-size: 3em;
+            margin-top: 20px;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+        }
+        #price {
+            font-size: 3em;
+            color: #ffffff;
+            margin-top: 20px;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+        }
+        .container {
+            width: 80%;
+            max-width: 900px;
+            padding: 20px;
+            background-color: #1d1d1d;
+            border-radius: 15px;
+            box-shadow: 0 0 25px rgba(0, 0, 0, 0.5);
+            text-align: center;
+        }
+        footer {
+            margin-top: 50px;
+            color: #777;
+            font-size: 1em;
+            text-align: center;
+        }
+        footer p {
+            margin: 0;
+        }
+        .italic-text {
+            font-style: italic;
+            color: #bbb;
+            font-size: 1.2em;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Harga Bitcoin (BTC) Hari Ini</h1>
+        <div id="price">Loading...</div>
+        
+        <!-- Tulisan Miring -->
+        <div class="italic-text">From Sumerta</div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 - Cryptocurrency Tracker</p>
+    </footer>
+
+    <script>
+        // Fungsi untuk mendapatkan harga Bitcoin dari CoinGecko API dalam IDR
+        async function getBitcoinPrice() {
+            const url = "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=idr";
+            try {
+                const response = await fetch(url);
+                const data = await response.json();
+                const price = data.bitcoin.idr;
+                document.getElementById('price').innerText = "Rp " + price.toLocaleString();
+            } catch (error) {
+                document.getElementById('price').innerText = "Error fetching data";
+            }
+        }
+
+        // Panggil fungsi untuk mendapatkan harga Bitcoin saat halaman dimuat
+        getBitcoinPrice();
+        
+        // Update harga setiap 60 detik
+        setInterval(getBitcoinPrice, 60000);
+    </script>
+</body>
+</html>
